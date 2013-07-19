@@ -1,0 +1,294 @@
+#include <posapi.h>
+#include <posapi_all.h>
+#include "Applib.h"
+#include "emv.h"
+#include "debug.h"
+
+EMV_PARAM gxEmvParam;
+char gszAmount[12+1]={0,};
+unsigned char aucAmount[6+1]={0,};
+extern	EMV_CAPK * MyCAPKS;
+extern  EMV_APPLIST * MyEmvApps;
+int cEMVUnknowTLVData(ushort iTag, uchar *psDat, int iDataLen)
+{
+	LOG_PRINTF(("cEMVUnknowTLVData() iTag %d",iTag));
+
+	switch( iTag )
+	{
+		/*
+		'C' = CASH DESBUS
+		'Z' = ATM CASH
+		'O' = COLLEGE SCHOOL
+		'H' = HOTEL/SHIP
+		'X' = TRANSFER
+		'A' = AUTO MOBILE/RENTAL
+		'F' = RESTAURANT
+		'T' = TELEPHONE ORDER PREAUTH
+		'U' = UNIQUE TRANS
+		'R' = RENTAL/OTHER TRANS
+		*/
+	case 0x9F53:		// Transaction Category Code (TCC) - Master Card
+		*psDat = 'R';	// 0x52;
+		break;
+
+	default:
+		return -1;
+	}
+
+	return EMV_OK;
+}
+
+void cEMVVerifyPINOK(void)
+{
+	LOG_PRINTF(("cEMVVerifyPINOK()"));
+	ScrCls();
+	ScrFontSet(0);
+	ScrPrint(0*6, 2,ASCII,"%s","PIN OK!");
+    DelayMs(1000);
+}
+
+int cCertVerify(void)
+{
+	EMV_MCKPARAM stMckParam;
+	LOG_PRINTF(("cCertVerify()"));
+	
+	stMckParam.ucBypassPin = 1;
+	stMckParam.ucBatchCapture = 1;
+	EMVSetMCKParam(&stMckParam);
+	
+	return -1;
+}
+
+int cEMVGetHolderPwd(int iTryFlag, int iRemainCnt, uchar *pszPlainPin)
+{
+    // Implement UI here for allowing user input PIN
+	
+	LOG_PRINTF(("cEMVGetHolderPwd() iTryFlag %d iRemainCnt %d",iTryFlag,iRemainCnt));
+	if(pszPlainPin!=NULL)
+	{
+		LOG_PRINTF(("cEMVGetHolderPwd() -> Pin Offline!!!"));
+		LOG_PRINTF(("cEMVGetHolderPwd() pszPlainPin[0] %d",pszPlainPin[0]));
+		
+		return EMV_OK;
+	}
+	else
+	{
+		LOG_PRINTF(("cEMVGetHolderPwd () ->Pin Online!!!"));
+		return EMV_OK;
+	}
+}
+
+int cEMVWaitAppSel(int TryCnt, EMV_APPLIST List[], int AppNum)
+{
+    // Implement UI here for allowing user select/confirm EMV application of the card.
+	
+	LOG_PRINTF(("cEMVWaitAppSel()"));
+
+            ScrCls();
+            ScrPrint(0,0,0,"(EMV APP SELECT)");
+            DelayMs(2000);
+            ScrCls();
+            ScrPrint(0,0,0,"PROCESSING...");
+
+	return 0;
+}
+
+void PromptRemoveICC(void)
+{
+	
+	IccClose(0);
+	if( IccDetect(0)!=0 )
+	{
+		return;
+	}
+	
+	ScrCls();
+	ScrFontSet(0);
+	ScrPrint(0*6, 2,ASCII,"%s","Remove Card!");
+
+	
+	while( IccDetect(0)==0 )
+	{
+		Beep();
+		DelayMs(500);
+	}
+}
+
+void EraseExpireCAPK(void)
+{
+	int			iRet, iCnt;
+	EMV_CAPK	stCAPK;
+	
+	LOG_PRINTF(("EraseExpireCAPK()"));
+	
+	for(iCnt=0; iCnt<MAX_KEY_NUM; iCnt++)
+	{
+		memset(&stCAPK, 0, sizeof(EMV_CAPK));
+		iRet = EMVCheckCAPK(&stCAPK.KeyID, stCAPK.RID);
+		if( iRet==EMV_OK )
+		{
+			break;
+		}
+		EMVDelCAPK(stCAPK.KeyID, stCAPK.RID);
+	}
+}
+
+void ShowTVR_TAC_IAC(void)
+{
+	int iLength,iCnt,iRet;
+	unsigned char aucBuffer[5+1];
+	EMV_APPLIST		stEmvApp;
+	uchar			sTermAID[16];
+
+	memset(aucBuffer,0,sizeof(aucBuffer));
+	EMVGetTLVData(0x95,   aucBuffer,  &iLength);
+	LOG_HEX_PRINTF("ShowTVR_TAC_IAC TVR",aucBuffer,iLength);
+
+	memset(aucBuffer,0,sizeof(aucBuffer));
+	EMVGetTLVData(0x9B,   aucBuffer,  &iLength);
+	LOG_HEX_PRINTF("ShowTVR_TAC_IAC TSI",aucBuffer,iLength);
+	
+	memset(aucBuffer,0,sizeof(aucBuffer));
+	EMVGetTLVData(0x9F0E, aucBuffer, &iLength);
+	LOG_HEX_PRINTF("ShowTVR_TAC_IAC IAC Denial",aucBuffer,iLength);
+
+	memset(aucBuffer,0,sizeof(aucBuffer));
+	EMVGetTLVData(0x9F0D, aucBuffer, &iLength);
+	LOG_HEX_PRINTF("ShowTVR_TAC_IAC IAC Online",aucBuffer,iLength);
+
+	memset(aucBuffer,0,sizeof(aucBuffer));
+	EMVGetTLVData(0x9F0F, aucBuffer, &iLength);
+	LOG_HEX_PRINTF("ShowTVR_TAC_IAC IAC Default",aucBuffer,iLength);
+
+	// search TAC from terminal parameter
+	memset(sTermAID, 0, sizeof(sTermAID));
+	EMVGetTLVData(0x9F06, sTermAID, &iLength);
+	for(iCnt=0; iCnt<MAX_APP_NUM; iCnt++)
+	{
+		memset(&stEmvApp, 0, sizeof(EMV_APPLIST));
+		iRet = EMVGetApp(iCnt, &stEmvApp);
+		if( iRet!=EMV_OK )
+		{
+			continue;
+		}
+		if( memcmp(sTermAID, stEmvApp.AID, stEmvApp.AidLen)==0 )
+		{
+			LOG_HEX_PRINTF("ShowTVR_TAC_IAC stEmvApp.TACDenial",stEmvApp.TACDenial,5);
+			LOG_HEX_PRINTF("ShowTVR_TAC_IAC stEmvApp.TACOnline",stEmvApp.TACOnline,5);
+			LOG_HEX_PRINTF("ShowTVR_TAC_IAC stEmvApp.TACDefault",stEmvApp.TACDefault,5);
+			break;
+		}
+	}
+	
+	return;
+}
+
+int cEMVSetParam(void)
+{
+    // Implement only when necessary
+
+	LOG_PRINTF(("cEMVSetParam()"));
+	
+	return EMV_OK;
+}
+
+int cEMVInputAmount(unsigned long *AuthAmt, ulong *CashBackAmt)
+{
+    // IMplement UI for allowing user to input transaction amount
+	
+	LOG_PRINTF(("cEMVInputAmount()  AuthAmt %ld gszAmount %s",*AuthAmt,gszAmount));
+
+            ScrCls();
+            ScrPrint(0,0,0,"(INPUT AMOUNT)");
+            DelayMs(2000);
+            ScrCls();
+            ScrPrint(0,0,0,"PROCESSING...");
+	
+	if( gszAmount!=0 )
+	{
+		*AuthAmt = atol((char *)gszAmount);
+		if( CashBackAmt!=NULL )
+		{
+			*CashBackAmt = 0L;
+		}
+	}
+	else
+	{
+		*AuthAmt = 0L;
+		if( CashBackAmt!=NULL )
+		{
+			*CashBackAmt = 0L;
+		}
+	}
+	
+	if( CashBackAmt==NULL )
+	{
+        // Disabled in EMV 4xx
+        /*
+		EMVSetTLVData(0x9F03, (uchar *)"\x00\x00\x00\x00\x00\x00", 6);
+		EMVSetTLVData(0x9F04, (uchar *)"\x00\x00\x00\x00", 4);
+        */
+	}
+	
+	return EMV_OK;
+}
+
+void cEMVAdviceProc(void)
+{
+	LOG_PRINTF(("cEMVAdviceProc"));
+	
+	return ;
+}
+
+int cEMVReferProc(void)
+{
+	LOG_PRINTF(("cEMVReferProc"));
+	
+	return 0;
+}
+
+int  cEMVOnlineProc(uchar *psRspCode,  uchar *psAuthCode, int *piAuthCodeLen,
+					uchar *psAuthData, int *piAuthDataLen,
+					uchar *psScript,   int *piScriptLen)
+{
+    // Implement online processing here.
+
+	LOG_PRINTF(("cEMVOnlineProc()"));
+
+            ScrCls();
+            ScrPrint(0,0,0,"ONLINE PROCESS...");
+            DelayMs(2000);
+            ScrCls();
+            ScrPrint(0,0,0,"PROCESSING...");
+
+	// initialize output parameters
+	memcpy(psRspCode, "00", 2);
+    memcpy(psAuthCode, "123456", 6);
+	*piAuthCodeLen  = 6;
+	*piAuthDataLen  = 0;
+	*piScriptLen    = 0;
+
+	return ONLINE_APPROVE;
+}
+
+
+
+void InitTestKeys(void)
+{
+	int		i;
+
+	LOG_PRINTF(("InitTestKeys"));
+
+	for(i=0; i<sizeof(AllEmvKey)/sizeof(AllEmvKey[0]); i++)
+	{
+		EMVAddCAPK(AllEmvKey[i].KeyValue);
+	}
+}
+
+void InitTestApps(void)
+{
+	LOG_PRINTF(("InitTestApps"));
+
+
+}
+

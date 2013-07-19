@@ -1,0 +1,133 @@
+#include <posapi.h>
+#include <posapi_all.h>
+#include "TamsLite.h"
+#include "PostRequest.h"
+#include "Debug.h"
+#include "tinyxml.h"
+#include "tinyxml-dom.h"
+#include "Md5.h"
+#include "Eod.h"
+extern BatchInformation MyBatchInfo;
+#define NOT_FOUND -1
+#define Count(ARRAY) (sizeof (ARRAY) / sizeof *(ARRAY))
+int  EndOfDay()
+{
+	int length  = -1;
+	char  Xml[102400]  = {0};
+	char  RequestData[102400] = {0};
+	char  AuthenticationData[200] = {0};
+	char *Pdata[3] = {0};
+	char T[500] = {0};
+	char A[500] = {0} ;
+	char BatchNo[500] = {0};
+	sprintf(T,"%d",MyBatchInfo.AllTransactionCount);
+	sprintf(A,"%d",MyBatchInfo.AllTransactionTotalValue);
+	sprintf(BatchNo,"%d",MyBatchInfo.BatchNo);
+	 Pdata[0] = T;//"0";
+	 Pdata[1] = A;//"0";
+	 Pdata[2] = BatchNo;//"0";
+	 GetHash(Pdata,3,AuthenticationData);
+	 sprintf(RequestData,"T=%d&A=%d&batchno=%d",MyBatchInfo.AllTransactionCount,MyBatchInfo.AllTransactionTotalValue,MyBatchInfo.BatchNo);
+
+	PostRequest("tams/eftpos/devinterface/efttotals.php",RequestData,AuthenticationData,Xml);
+	length = strlen(Xml);
+	if(length >0)
+	{
+		//Response Successfull
+		return ProcessResponse(Xml);
+	}else
+	{
+		return -1;
+	}
+}
+static int ProcessResponse(char *Xml)
+{
+	int length = 0;
+	int pos = 0;
+	int iRet = -1;
+	char WorkingXml[10240] = {0};
+	struct tx_node nodes[32]; 
+	dom_node_t errorcode_nodes[1]; 
+	dom_node_t result_nodes[1];
+	dom_node_t batchno_nodes[1];
+	dom_node_t Domnode;
+	
+	size_t i = 0;
+	size_t count;
+	char *tail;
+	char Db[200];
+	pos = mystrpos(Xml,"<efttotals>");
+		
+		if(pos >0)
+		{
+			//merchantid gotten
+			substring((size_t)pos,strlen(Xml),Xml,WorkingXml,strlen(WorkingXml));
+			tail = tx_parse(WorkingXml, Count(nodes), nodes);
+			count = dom_getElementsByTagName(nodes, "result", Count(result_nodes), result_nodes);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"N%d",count);
+    	for(; i < count; ++i)
+		{
+			
+    		Domnode = result_nodes[i];
+			//strcpy((char *)MyDevice.MerchantId,Domnode->value);
+			//Domnode->value;
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"ResultCode:%s",Domnode->value);
+			SendDebug(Db);
+		}
+		count = 0;
+		i=0;
+		//terminal date and time
+		count = dom_getElementsByTagName(nodes, "batchno", Count(batchno_nodes), batchno_nodes);
+		for(; i < count; ++i)
+		{
+			
+    		Domnode = batchno_nodes[i];
+			//strcpy((char *)MyDevice.MerchantId,Domnode->value);
+			//Domnode->value;
+			memset(&MyBatchInfo,0,sizeof(MyBatchInfo));
+			MyBatchInfo.BatchNo = atoi((void *)Domnode->value);
+			SaveBatchInfo(&MyBatchInfo);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"Batchno:%s",Domnode->value);
+			SendDebug(Db);
+			return 0;
+		}
+		
+		}
+		pos = 0;
+		pos = mystrpos(Xml,"<error>");
+		if(pos >0)
+		{
+			//error
+			iRet=-1;
+			substring((size_t)pos,strlen(Xml),Xml,WorkingXml,strlen(WorkingXml));
+			SendDebug("=======================");
+			SendDebug(Xml);
+			tail = tx_parse(Xml, Count(nodes), nodes);
+			count = dom_getElementsByTagName(nodes, "errcode", Count(errorcode_nodes), errorcode_nodes);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"N%d",count);
+    	for(; i < count; ++i)
+		{
+			//memset(&Domnode,0,sizeof(Domnode));
+    		Domnode = errorcode_nodes[i];
+			SendDebug("***************************");
+			SendDebug(Db);
+			SendDebug("----------------------------");
+			SendDebug(Domnode->value);
+			
+		}
+		SendDebug("EOD:Request Failed");
+		return iRet;
+		}
+	else
+	{
+		
+		
+		return iRet;
+	}
+	
+	return iRet;	
+}

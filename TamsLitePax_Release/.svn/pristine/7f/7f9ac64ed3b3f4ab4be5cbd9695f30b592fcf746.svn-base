@@ -1,0 +1,202 @@
+#ifndef _TAMSLITE_H
+#define _TAMSLITE_H
+#define TRACK1_LEN						79
+#define TRACK2_LEN						41
+#define HOT_PANSIZE                     25
+typedef enum   {GPRS,ETHERNET,WIFI} CommunicationDeviceType;
+typedef enum   {TRIDES,DUKPT}  EncType;
+typedef enum   
+{
+PurchaseOnly = 1 ,
+PurchasewithCashback = 2,
+CashbackOnly = 3 ,
+ReversalTransaction = 4,
+Refund = 5,
+AuthOnly = 6,
+BalanceInquiry  = 7,
+PINChange = 8  ,
+MiniStatement = 9 ,
+Transfer = 10,
+Deposit = 11,
+Rollback = 12,
+PreAuthPurchase = 33 ,
+PreAuthLifecycle = 34 ,
+PreAuthAdjustment =35,
+BillPayment = 39,
+QuasiCash = 44,
+WebPurchaseGoodsServices= 100
+
+} TransactionType;
+ typedef enum
+ {
+	 Default =0 ,
+	 Savings = 1,
+	 Current = 2
+ }AccountType;
+typedef struct
+{
+	 char  MasterKey[50];
+	unsigned char  Key0[50];
+	unsigned char  Key1[50];
+	unsigned char  Key2[50];
+	unsigned char  Key3[50];
+	unsigned char  Key4[50];
+	unsigned char  Key5[50];
+	unsigned char  Key6[50];
+	unsigned char  Key7[50];
+	unsigned char  Key8[50];
+	unsigned char  Key9[50];
+	
+}EncKeys;
+typedef struct
+{
+CommunicationDeviceType DeviceType;
+unsigned char TMS[15];
+short Port;
+}Communication;
+typedef struct{
+	unsigned char APN[50];
+	unsigned char UserName[50];
+	unsigned char Password[50];
+	unsigned char SignalStrength;
+}GprsSettings;
+
+typedef struct
+{
+	int NoOfEMVApps;
+	EncType PinBlockEncryptionType;
+	char TerminalId[16];
+	char MerchantId[50];
+	unsigned char SerialNumber[50];
+	Communication DeviceCommunication;
+	GprsSettings  DeviceGprsSettings;
+	EncKeys DeviceKeys;
+}Device;
+
+typedef struct
+{
+	int BatchNo;
+	long int AllTransactionCount;
+	long double AllTransactionTotalValue;
+	long int PurchaseTransactionCount;
+	long double PurchaseTransactionTotalValue;
+	long int PurchaseReversalTransactionCount;
+	long double PurchaseReversakTransactionValue;
+	long int RefundTransactionCount;
+	long double RefundTransactionTotalValue;
+	long int RefundReversalTransactionCount;
+	long double RefundReversalTransactionTotalValue;
+}BatchInformation;
+typedef struct {
+    char    cTranResult;    //Approved Declined ...
+    char	cTranType;      //Purchase,
+    int	    iTranStatus;    //Tran Error Code (if Declined)
+    long    lSeqNo;         //Stored Seq No from Settings
+    long    lRevSeq;        //The Reversals Perant Seq No
+    //time_t  lTranDateTime;
+    char    cTrack2[TRACK2_LEN];
+    char    cCardCCV[7];//5
+    int     iOperator;
+    char    cSupervisorFlag;
+    long    lPurchaseAmount;
+    long    lTipAmount;
+    long    lCashbackAmount;
+    int     iBudgetPeriod;
+    char    cAccount;
+    char	cAccount2;      //(Transfer TO Account)
+    long    lMerchantIRN;
+    char    cManualFlag;
+    char    cOffline;
+    char    cRefNo[21];
+    char    cCardType;
+    char    cHaveChield;   
+    char    cAuthOverride;
+    char    cAccountNo1[34];
+    char	cAccountNo2[34];      //(Transfer TO Account)
+    char	cRefCode[102];
+    int     iPromptRecordNo;
+	long    lTxnFee;
+	char    cTrack1[TRACK1_LEN];
+	char    ICCData[250];
+    char    cCard;
+	char    cPin[50];
+	char    cSerial[50];
+	//char    cAuthID[8];
+} REC_EftAuthTran;
+
+typedef struct{
+TransactionType TransType;
+long BatchNo;
+long SequenceNo;
+long  MerchantId;
+char CVV[10];
+char    TransacDateAndTime[10];
+int  OperatorId;
+char SupervisorFlag;
+char Track2[TRACK2_LEN];
+char Track1[TRACK1_LEN];
+long PurchaseAmount;
+long CashBackAmount;
+long TipAmount;
+int  BudgetPeriod;
+AccountType AcctType;
+char    PinBlock[50];
+char    PinSerial[50];
+char    ManualFlag;
+char    Offline;
+long 	OriginalSequenceNumber;
+char	RefCode[102];
+char    OriginalTerminalId[50];
+char    ReversalDateAndTime[10];
+TransactionType	ReversalTransactionType;
+char ReversalRefCode[102];
+int CurrencyCode;
+long ProcessorFee;
+long AcquiringFee;
+char AddtionalData[102];
+
+}EftTransaction;
+typedef struct {
+    char    cPinblock1[17];
+    char    cPinblocSerial1[21];
+
+    char    cPinblock2[17];
+    char    cPinblocSerial2[21];
+
+    char    cPinblock3[17];
+    char    cPinblocSerial3[21];
+} REC_EftPin;
+
+typedef struct {
+    long    lDate;
+    int     iAccount;
+    char    cMsg[20];
+    char    cAmount[20];
+} REC_Statement;
+
+typedef struct {
+    int             iDeclineReason;
+    int             iResult;
+    char            cAvailable[20];
+    char            cBalance[20];
+    REC_Statement   tStatement[10];
+//    char            cReferenceCode[20];
+//    char            cAccountNo[34]; //From Account
+} REC_EftReturn;
+Device MyDevice;
+BatchInformation MyBatchInfo;
+int mystrpos(char *haystack, char *needle);
+char *trim(char *s);
+char *rtrim(char *s);
+char *ltrim(char *s);
+char *substring(size_t start, size_t stop, const char *src, char *dst, size_t size);
+int SaveDevice(Device * Device);
+int ReadDevice(Device *Device);
+
+int SaveBatchInfo(BatchInformation *BatchInfo);
+int ReadBatchInfo(BatchInformation *BatchInfo);
+
+int ShowMagStripeEftMenu(ST_MAGCARD MAGSTRIPE);
+int ShowChipEftMenu();
+int ShowAdminMenu();	
+#endif					

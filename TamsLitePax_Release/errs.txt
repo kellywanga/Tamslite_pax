@@ -1,0 +1,256 @@
+In file included from BALANC~1.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from BALANC~1.c:4:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from BALANC~1.c:5:
+BalanceEnq.h:5:7: warning: no newline at end of file
+In file included from BALANC~1.c:7:
+EftUtil.h:13:7: warning: no newline at end of file
+BALANC~1.c:142:2: warning: no newline at end of file
+In file included from BIN2AS~1.c:5:
+Bin2Ascii.h:7:7: warning: no newline at end of file
+In file included from BIN2AS~1.c:6:
+TamsLite.h:193:12: warning: no newline at end of file
+BIN2AS~1.c:46:2: warning: no newline at end of file
+In file included from Bin2Hex.c:4:
+TamsLite.h:193:12: warning: no newline at end of file
+Bin2Hex.c:21:2: warning: no newline at end of file
+In file included from CallHome.c:4:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from CallHome.c:6:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from CallHome.c:8:
+Printer.h:38:7: warning: no newline at end of file
+CallHome.c:42:2: warning: no newline at end of file
+In file included from Debug.c:4:
+Debug.h:14:7: warning: no newline at end of file
+Debug.c:78:2: warning: no newline at end of file
+In file included from EftUtil.c:3:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from EftUtil.c:4:
+Debug.h:14:7: warning: no newline at end of file
+In file included from EftUtil.c:6:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from EftUtil.c:7:
+EftUtil.h:13:7: warning: no newline at end of file
+EftUtil.c: In function 'getEftTransaction':
+EftUtil.c:27: warning: passing argument 1 of 'LOG_PRINTF' makes pointer from integer without a cast
+EftUtil.c:94:2: warning: no newline at end of file
+In file included from Emv.c:5:
+debug.h:14:7: warning: no newline at end of file
+In file included from Emv.c:7:
+EmvApplist.h:35:7: warning: no newline at end of file
+In file included from Emv.c:8:
+EmvCaKey.h:34:7: warning: no newline at end of file
+In file included from Emv.c:9:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Emv.c:11:
+MagStripe.h:13:7: warning: no newline at end of file
+In file included from Emv.c:12:
+Purchase.h:6:7: warning: no newline at end of file
+In file included from Emv.c:13:
+Bin2Hex.h:4:7: warning: no newline at end of file
+In file included from Emv.c:14:
+Bin2Ascii.h:7:7: warning: no newline at end of file
+In file included from Emv.c:15:
+Printer.h:38:7: warning: no newline at end of file
+In file included from Emv.c:16:
+EftUtil.h:13:7: warning: no newline at end of file
+In file included from EMVAPP~1.c:3:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from EMVAPP~1.c:4:
+Debug.h:14:7: warning: no newline at end of file
+In file included from EMVAPP~1.c:6:
+EmvApplist.h:35:7: warning: no newline at end of file
+In file included from EMVAPP~1.c:9:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from EMVAPP~1.c:10:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+In file included from EMVAPP~1.c:11:
+TamsLite.h:193:12: warning: no newline at end of file
+EMVAPP~1.c:283:2: warning: no newline at end of file
+In file included from EmvCaKey.c:3:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from EmvCaKey.c:4:
+Debug.h:14:7: warning: no newline at end of file
+In file included from EmvCaKey.c:8:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from EmvCaKey.c:9:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+In file included from EmvCaKey.c:10:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from EmvCaKey.c:12:
+EmvCaKey.h:34:7: warning: no newline at end of file
+EmvCaKey.c: In function 'ProcessResponse':
+EmvCaKey.c:104: warning: cast to pointer from integer of different size
+EmvCaKey.c:233:2: warning: no newline at end of file
+In file included from Eod.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Eod.c:4:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from Eod.c:5:
+Debug.h:14:7: warning: no newline at end of file
+In file included from Eod.c:6:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from Eod.c:7:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+In file included from Eod.c:9:
+Eod.h:8:7: warning: no newline at end of file
+In file included from Eod.c:10:
+Printer.h:38:7: warning: no newline at end of file
+In file included from GETPAR~1.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from GETPAR~1.c:4:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from GETPAR~1.c:5:
+GetParameters.h:5:7: warning: no newline at end of file
+In file included from GETPAR~1.c:6:
+Debug.h:14:7: warning: no newline at end of file
+In file included from GETPAR~1.c:7:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from GETPAR~1.c:8:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+In file included from GETPAR~1.c:10:
+Printer.h:38:7: warning: no newline at end of file
+GETPAR~1.c:215:2: warning: no newline at end of file
+In file included from Keys.c:6:
+Debug.h:14:7: warning: no newline at end of file
+In file included from Keys.c:7:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Keys.c:8:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from Keys.c:10:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from Keys.c:11:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+In file included from Keys.c:13:
+Keys.h:24:7: warning: no newline at end of file
+In file included from Keys.c:14:
+Printer.h:38:7: warning: no newline at end of file
+In file included from Keys.c:15:
+Bin2Hex.h:4:7: warning: no newline at end of file
+Keys.c:465:2: warning: no newline at end of file
+In file included from MAGSTR~1.c:3:
+MagStripe.h:13:7: warning: no newline at end of file
+In file included from MAGSTR~1.c:4:
+TamsLite.h:193:12: warning: no newline at end of file
+MAGSTR~1.c:31:2: warning: no newline at end of file
+In file included from Main.c:6:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Main.c:7:
+PhyComms.h:8:7: warning: no newline at end of file
+In file included from Main.c:10:
+EftUtil.h:13:7: warning: no newline at end of file
+In file included from Main.c:11:
+Bin2Hex.h:4:7: warning: no newline at end of file
+In file included from Md5.c:9:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Md5.c:10:
+Debug.h:14:7: warning: no newline at end of file
+In file included from Md5.c:12:
+Keys.h:24:7: warning: no newline at end of file
+In file included from NetProc.c:4:
+Debug.h:14:7: warning: no newline at end of file
+In file included from NetProc.c:6:
+NetProc.h:8:7: warning: no newline at end of file
+NetProc.c:125:2: warning: no newline at end of file
+In file included from PhyComms.c:3:
+PhyComms.h:8:7: warning: no newline at end of file
+PhyComms.c:62:2: warning: no newline at end of file
+In file included from POSTRE~1.c:5:
+PhyComms.h:8:7: warning: no newline at end of file
+In file included from POSTRE~1.c:6:
+NetProc.h:8:7: warning: no newline at end of file
+In file included from POSTRE~1.c:7:
+Debug.h:14:7: warning: no newline at end of file
+In file included from POSTRE~1.c:8:
+TamsLite.h:193:12: warning: no newline at end of file
+POSTRE~1.c:165:2: warning: no newline at end of file
+In file included from Printer.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Printer.c:4:
+Printer.h:38:7: warning: no newline at end of file
+In file included from Printer.c:8:
+Bin2Ascii.h:7:7: warning: no newline at end of file
+In file included from Printer.c:9:
+MagStripe.h:13:7: warning: no newline at end of file
+In file included from Printer.c:10:
+EftUtil.h:13:7: warning: no newline at end of file
+Printer.c:631:2: warning: no newline at end of file
+In file included from Purchase.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Purchase.c:4:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from Purchase.c:5:
+Purchase.h:6:7: warning: no newline at end of file
+In file included from Purchase.c:7:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from Purchase.c:8:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+In file included from Purchase.c:9:
+Debug.h:14:7: warning: no newline at end of file
+In file included from Purchase.c:10:
+EftUtil.h:13:7: warning: no newline at end of file
+In file included from Purchase.c:11:
+Printer.h:38:7: warning: no newline at end of file
+In file included from Reversal.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from Reversal.c:4:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from Reversal.c:5:
+Reversal.h:5:7: warning: no newline at end of file
+In file included from RollBack.c:3:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from RollBack.c:4:
+PostRequest.h:6:7: warning: no newline at end of file
+In file included from RollBack.c:5:
+RollBack.h:5:7: warning: no newline at end of file
+In file included from Security.c:22:
+Debug.h:14:7: warning: no newline at end of file
+In file included from sha256.c:25:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from sha256.c:26:
+Debug.h:14:7: warning: no newline at end of file
+sha256.c:274:1: warning: null character(s) ignored
+sha256.c:274:2168: warning: no newline at end of file
+In file included from TamsLite.c:5:
+TamsLite.h:193:12: warning: no newline at end of file
+In file included from TamsLite.c:6:
+Debug.h:14:7: warning: no newline at end of file
+In file included from TamsLite.c:7:
+Purchase.h:6:7: warning: no newline at end of file
+In file included from TamsLite.c:9:
+MagStripe.h:13:7: warning: no newline at end of file
+In file included from TamsLite.c:10:
+BalanceEnq.h:5:7: warning: no newline at end of file
+In file included from TamsLite.c:12:
+Keys.h:24:7: warning: no newline at end of file
+In file included from TamsLite.c:13:
+Eod.h:8:7: warning: no newline at end of file
+In file included from TamsLite.c:14:
+GetParameters.h:5:7: warning: no newline at end of file
+In file included from TamsLite.c:16:
+EftUtil.h:13:7: warning: no newline at end of file
+In file included from TamsLite.c:17:
+Printer.h:38:7: warning: no newline at end of file
+TamsLite.c:1213:2: warning: no newline at end of file
+In file included from TINYXM~1.c:9:
+tinyxml.h:96:12: warning: no newline at end of file
+In file included from TINYXM~1.c:10:
+tinyxml-dom.h:34:12: warning: no newline at end of file
+TINYXM~1.c: In function 'dom_hasChildNodes':
+TINYXM~1.c:62: warning: return makes integer from pointer without a cast
+TINYXM~1.c:79:7: warning: no newline at end of file
+In file included from tinyxml.c:7:
+tinyxml.h:96:12: warning: no newline at end of file
+tinyxml.c:277:6: warning: no newline at end of file
+C:\PAXAPP\TAMSLI~1\.\obj_sxx\init.o: In function `__entry':
+C:\PAXPAY~1\postype\S80/init_s80.s:12: relocation truncated to fit: R_ARM_PC24 against symbol `main_entry' defined in .text.main_entry section in C:\PAXPAY~1\postype\S80/libs80api.a(dll.o)
+C:\PAXPAY~1\postype\S80/init_s80.s:14: relocation truncated to fit: R_ARM_PC24 against symbol `AppInfo' defined in .rodata section in C:\PAXAPP\TAMSLI~1\.\obj_sxx\Main.o
+C:\PAXPAY~1\postype\S80/libs80api.a(dll.o): In function `s_SystemInit':
+dll.c:(.text.s_SystemInit+0x54): relocation truncated to fit: R_ARM_PC24 against symbol `s_recall' defined in .entry_init section in C:\PAXAPP\TAMSLI~1\.\obj_sxx\init.o
+dll.c:(.text.s_SystemInit+0xb8): undefined reference to `Image_RO_Base'
+C:\PAXPAY~1\postype\S80/libs80api.a(dll.o): In function `main_entry':
+dll.c:(.text.main_entry+0x68): undefined reference to `Image_RO_Base'
+NMAKE : fatal error U1077: 'C:\PAXPAY~1\build\gcc410\bin\arm-elf-ld' : return code '0x1'
+Stop.

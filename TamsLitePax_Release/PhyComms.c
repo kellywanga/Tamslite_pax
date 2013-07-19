@@ -1,0 +1,62 @@
+#include <posapi.h>
+#include <posapi_all.h>
+#include "PhyComms.h"
+
+
+int WirelessInit()
+{
+	return WlInit(NULL);
+	
+}
+int WirelessDial(uchar *sAPN,uchar *sUser,uchar *sPwd)
+{
+	int   ii,iRet=1,iTimeoutNum;
+	
+	iTimeoutNum = 0;
+	do {
+		iTimeoutNum++;
+		for (ii=0;ii<3;ii++)
+		{
+			
+			WlPppLogin(sAPN,sUser,sPwd,0xff,0,0);
+			
+			DelayMs(2000);
+			
+			while (WlPppCheck()==1)
+			{
+				iRet = FAIL;
+				if (kbhit()==OK)
+				{
+					if (getkey()==KEYCANCEL)
+					{
+						break;
+					}
+				}
+				DelayMs(200);
+				continue;
+			}
+			if (WlPppCheck()==0)
+			{
+				iRet = OK;
+				break;
+			}
+			//ScrPrint(0,2,0,"PPP Logon time:%d",ii);
+		}
+		if (iRet !=0 && iTimeoutNum ==1)
+		{
+			
+			//ScrPrint(0,3,0,"WlSwitchPower!");
+			WlSwitchPower(0);
+			DelayMs(10*1000);
+			WlSwitchPower(1);
+		}
+	}
+	
+	while (iRet != 0 && iTimeoutNum == 1);
+	return iRet;
+}
+int WirelessHangUp()
+{
+	WlPppLogout();
+	return 0;
+}

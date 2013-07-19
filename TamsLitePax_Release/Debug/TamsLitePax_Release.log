@@ -1,0 +1,203 @@
+﻿Build started 20/06/2013 14:32:30.
+     1>Project "C:\PAXAPP\TamsLitePax_Release\TamsLitePax_Release.vcxproj" on node 2 (rebuild target(s)).
+     1>InitializeBuildStatus:
+         Creating ".\Debug\TamsLitePax_Release.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\PAXPAY~1\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /X /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug/" /Fd".\Debug/vc100.pdb" /Gd /TC /analyze- /errorReport:prompt Applib.c Arcfour.c BalanceEnq.c Bin2Ascii.c Bin2Hex.c CallHome.c Debug.c EftUtil.c Emv.c EmvApplist.c EmvCaKey.c Eod.c GetParameters.c Hex2Bin.c Keys.c MagStripe.c Main.c Md5.c NetProc.c PhyComms.c PostRequest.c Printer.c Purchase.c rc4.c Reversal.c RollBack.c Security.c sha256.c TamsLite.c TamsLiteReleaseTest.c "tinyxml-dom.c" tinyxml.c
+         tinyxml.c
+         tinyxml-dom.c
+     1>c:\paxapp\tamslitepax_release\tinyxml-dom.c(62): warning C4047: 'return' : 'int' differs in levels of indirection from 'tx_node *'
+         TamsLiteReleaseTest.c
+         TamsLite.c
+     1>c:\paxapp\tamslitepax_release\tamslite.c(31): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\paxapp\tamslitepax_release\tamslite.c(177): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(178): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(187): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(241): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(242): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(114): warning C4101: 'Ammount' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\tamslite.c(346): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(347): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(356): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(402): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(403): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(412): warning C4244: '=' : conversion from 'long double' to 'long', possible loss of data
+     1>c:\paxapp\tamslitepax_release\tamslite.c(278): warning C4101: 'Ammount' : unreferenced local variable
+         sha256.c
+         Security.c
+         RollBack.c
+         Reversal.c
+         rc4.c
+     1>c:\paxapp\tamslitepax_release\rc4.c(29): warning C4244: '=' : conversion from 'short' to 'unsigned char', possible loss of data
+     1>c:\paxapp\tamslitepax_release\rc4.c(19): warning C4101: 'i' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\rc4.c(21): warning C4101: 'swapByte' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\rc4.c(48): warning C4101: 'xorIndex' : unreferenced local variable
+         Purchase.c
+     1>c:\paxapp\tamslitepax_release\purchase.c(54): warning C4101: 'LocalBatchInfo' : unreferenced local variable
+         Printer.c
+     1>c:\paxapp\tamslitepax_release\printer.c(143): warning C4101: 'buff' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(191): warning C4101: 'LocalDevice' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(228): warning C4101: 'cReadPan' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(230): warning C4101: 'printBuf' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(226): warning C4101: 'acStr' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(232): warning C4101: 'tagValueStr' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(231): warning C4101: 'tagValueBin' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(233): warning C4101: 'name' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(237): warning C4101: 'pan' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(229): warning C4101: 'cExpiry' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(368): warning C4101: 'cReadPan' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(370): warning C4101: 'printBuf' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(366): warning C4101: 'acStr' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(372): warning C4101: 'tagValueStr' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(371): warning C4101: 'tagValueBin' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(373): warning C4101: 'name' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(377): warning C4101: 'pan' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\printer.c(369): warning C4101: 'cExpiry' : unreferenced local variable
+         PostRequest.c
+     1>c:\paxapp\tamslitepax_release\postrequest.c(61): warning C4101: 'jj' : unreferenced local variable
+         PhyComms.c
+         NetProc.c
+     1>c:\paxapp\tamslitepax_release\netproc.c(94): warning C4101: 'iResult' : unreferenced local variable
+         Md5.c
+     1>c:\paxapp\tamslitepax_release\md5.c(351): warning C4101: 'TempReturn' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\md5.c(350): warning C4101: 'OutputBuffer' : unreferenced local variable
+         Main.c
+     1>c:\paxapp\tamslitepax_release\main.c(153): warning C4101: 'Tst' : unreferenced local variable
+         MagStripe.c
+         Keys.c
+         Hex2Bin.c
+         GetParameters.c
+         Generating Code...
+     1>c:\paxapp\tamslitepax_release\magstripe.c(31): warning C4716: 'ParseTrackTwo' : must return a value
+     1>c:\paxapp\tamslitepax_release\printer.c(52): warning C4700: uninitialized local variable '_MyLocalTransaction' used
+     1>c:\paxapp\tamslitepax_release\tamslite.c(64): warning C4716: 'uppercase' : must return a value
+     1>c:\paxapp\tamslitepax_release\tamslite.c(1213): warning C4716: 'TruncateAllFiles' : must return a value
+         Compiling...
+         Eod.c
+         EmvCaKey.c
+     1>c:\paxapp\tamslitepax_release\emvcakey.c(50): warning C4101: 'hashalgo' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvcakey.c(47): warning C4101: 'KeyID' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvcakey.c(54): warning C4101: 'pkalgo' : unreferenced local variable
+         EmvApplist.c
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(46): warning C4101: 'emv_nodes' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(55): warning C4101: 'VelocityCheck' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(54): warning C4101: 'RandTransSel' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(53): warning C4101: 'FloorLimitCheck' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(57): warning C4101: 'Threshold' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(50): warning C4101: 'Priority' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(56): warning C4101: 'FloorLimit' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(52): warning C4101: 'MaxTargetPer' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(64): warning C4101: 'RiskManData' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emvapplist.c(51): warning C4101: 'TargetPer' : unreferenced local variable
+         Emv.c
+     1>c:\paxapp\tamslitepax_release\emv.c(366): warning C4101: 'ATC' : unreferenced local variable
+     1>c:\paxapp\tamslitepax_release\emv.c(353): warning C4101: 'AmountOtherLen' : unreferenced local variable
+         EftUtil.c
+     1>c:\paxapp\tamslitepax_release\eftutil.c(27): warning C4047: 'function' : 'char *' differs in levels of indirection from 'int'
+     1>c:\paxapp\tamslitepax_release\eftutil.c(27): warning C4024: 'LOG_PRINTF' : different types for formal and actual parameter 1
+         Debug.c
+         CallHome.c
+         Bin2Hex.c
+         Bin2Ascii.c
+         BalanceEnq.c
+     1>c:\paxapp\tamslitepax_release\balanceenq.c(48): warning C4101: 'LocalBatchInfo' : unreferenced local variable
+         Arcfour.c
+         Applib.c
+         Generating Code...
+       ManifestResourceCompile:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\TamsLitePax_Release.exe.embed.manifest.res" .\Debug\TamsLitePax_Release_manifest.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug/TamsLitePax_Release.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\PaxPayPro2010\lib\lib /LIBPATH:C:\Users\Solomon\Desktop\PAXDEMOS\DEMO_EMV_LIB\EmvLib_v412\EmvLib_v412 /LIBPATH:"C:\PAXPAY~1\LIB" payprocore.lib EntryVS2010.lib Sxx_EmvPC_v412.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:".\Debug\TamsLitePax_Release.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug/TamsLitePax_Release.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug\TamsLitePax_Release.lib" /MACHINE:X86 .\Debug\TamsLitePax_Release.exe.embed.manifest.res
+         .\Debug/Applib.obj
+         .\Debug/Arcfour.obj
+         .\Debug/BalanceEnq.obj
+         .\Debug/Bin2Ascii.obj
+         .\Debug/Bin2Hex.obj
+         .\Debug/CallHome.obj
+         .\Debug/Debug.obj
+         .\Debug/EftUtil.obj
+         .\Debug/Emv.obj
+         .\Debug/EmvApplist.obj
+         .\Debug/EmvCaKey.obj
+         .\Debug/Eod.obj
+         .\Debug/GetParameters.obj
+         .\Debug/Hex2Bin.obj
+         .\Debug/Keys.obj
+         .\Debug/MagStripe.obj
+         .\Debug/Main.obj
+         .\Debug/Md5.obj
+         .\Debug/NetProc.obj
+         .\Debug/PhyComms.obj
+         .\Debug/PostRequest.obj
+         .\Debug/Printer.obj
+         .\Debug/Purchase.obj
+         .\Debug/rc4.obj
+         .\Debug/Reversal.obj
+         .\Debug/RollBack.obj
+         .\Debug/Security.obj
+         .\Debug/sha256.obj
+         .\Debug/TamsLite.obj
+         .\Debug/TamsLiteReleaseTest.obj
+         ".\Debug/tinyxml-dom.obj"
+         .\Debug/tinyxml.obj
+     1>Sxx_EmvPC_v412.lib(appman.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(appman.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(elements.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(elements.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(icc.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(icc.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(pub.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(pub.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(security.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(security.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(trans.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(trans.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(TransLog.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(TransLog.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+       Manifest:
+         Deleting file ".\Debug\TamsLitePax_Release.exe.embed.manifest".
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:".\Debug\TamsLitePax_Release.exe.embed.manifest" /manifest .\Debug\TamsLitePax_Release.exe.intermediate.manifest
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\TamsLitePax_Release.exe.embed.manifest.res" .\Debug\TamsLitePax_Release_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug/TamsLitePax_Release.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\PaxPayPro2010\lib\lib /LIBPATH:C:\Users\Solomon\Desktop\PAXDEMOS\DEMO_EMV_LIB\EmvLib_v412\EmvLib_v412 /LIBPATH:"C:\PAXPAY~1\LIB" payprocore.lib EntryVS2010.lib Sxx_EmvPC_v412.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libc.lib /MANIFEST /ManifestFile:".\Debug\TamsLitePax_Release.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug/TamsLitePax_Release.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug\TamsLitePax_Release.lib" /MACHINE:X86 .\Debug\TamsLitePax_Release.exe.embed.manifest.res
+         .\Debug/Applib.obj
+         .\Debug/Arcfour.obj
+         .\Debug/BalanceEnq.obj
+         .\Debug/Bin2Ascii.obj
+         .\Debug/Bin2Hex.obj
+         .\Debug/CallHome.obj
+         .\Debug/Debug.obj
+         .\Debug/EftUtil.obj
+         .\Debug/Emv.obj
+         .\Debug/EmvApplist.obj
+         .\Debug/EmvCaKey.obj
+         .\Debug/Eod.obj
+         .\Debug/GetParameters.obj
+         .\Debug/Hex2Bin.obj
+         .\Debug/Keys.obj
+         .\Debug/MagStripe.obj
+         .\Debug/Main.obj
+         .\Debug/Md5.obj
+         .\Debug/NetProc.obj
+         .\Debug/PhyComms.obj
+         .\Debug/PostRequest.obj
+         .\Debug/Printer.obj
+         .\Debug/Purchase.obj
+         .\Debug/rc4.obj
+         .\Debug/Reversal.obj
+         .\Debug/RollBack.obj
+         .\Debug/Security.obj
+         .\Debug/sha256.obj
+         .\Debug/TamsLite.obj
+         .\Debug/TamsLiteReleaseTest.obj
+         ".\Debug/tinyxml-dom.obj"
+         .\Debug/tinyxml.obj
+     1>Sxx_EmvPC_v412.lib(appman.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(appman.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(elements.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(elements.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(icc.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(icc.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(pub.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(pub.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(security.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(security.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(trans.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(trans.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+     1>Sxx_EmvPC_v412.lib(TransLog.obj) : warning LNK4099: PDB 'vc60.pdb' was not found with 'Sxx_EmvPC_v412.lib(TransLog.obj)' or at 'C:\PAXAPP\TamsLitePax_Release\Debug\vc60.pdb'; linking object as if no debug info
+         TamsLitePax_Release.vcxproj -> C:\PAXAPP\TamsLitePax_Release\.\Debug\TamsLitePax_Release.exe
+       FinalizeBuildStatus:
+         Deleting file ".\Debug\TamsLitePax_Release.unsuccessfulbuild".
+         Touching ".\Debug\TamsLitePax_Release.lastbuildstate".
+     1>Done Building Project "C:\PAXAPP\TamsLitePax_Release\TamsLitePax_Release.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.13

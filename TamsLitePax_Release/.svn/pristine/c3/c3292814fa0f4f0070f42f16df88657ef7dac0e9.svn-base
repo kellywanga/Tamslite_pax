@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9b248594-7e25-4f79-bcdb-dc6b127f28df}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{17130932-af94-43d3-906e-88c2ea9ce823}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Applib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Arcfour.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hex2Bin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Md5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rc4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Security.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sha256.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TamsLite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhyComms.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NetProc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PostRequest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Keys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eod.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GetParameters.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CallHome.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Purchase.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reversal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BalanceEnq.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RollBack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bin2Hex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TamsLiteReleaseTest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml-dom.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagStripe.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EmvCaKey.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EmvApplist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Arcfour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hex2Bin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Md5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PostRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Security.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TamsLite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml-dom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sha256.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhyComms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NetProc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Keys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GetParameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CallHome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Purchase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reversal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BalanceEnq.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RollBack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bin2Hex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rc4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagStripe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EmvCaKey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EmvApplist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="emvlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,233 @@
+#include <posapi.h>
+#include <posapi_all.h>
+#include "PostRequest.h"
+#include "Debug.h"
+#include "Md5.h"
+#include "emvlib.h"
+#include "Applib.h"
+#include "tinyxml.h"
+#include "tinyxml-dom.h"
+#include "TamsLite.h"
+#include  "Hex2Bin.h"
+#include "EmvCaKey.h"
+#define Count(ARRAY) (sizeof (ARRAY) / sizeof *(ARRAY))
+
+EMV_CAPK * MyCAPKS;
+int  GetEmvCaKeys()
+{
+
+	int length = -1;
+	char  Xml[102400]  = {0};
+	char *Pdata[1] = {0};
+	char AuthenticationData[200] = {0};
+	Pdata[0] = "";
+	GetHash(Pdata,1,AuthenticationData);
+	PostRequest("/tams/eftpos/devinterface/emvcapk.php","",AuthenticationData,Xml);
+	length = strlen(Xml);
+	if(length >0)
+	{
+		//Response Successfull
+		return ProcessResponse(Xml);
+	}else
+	{
+		return -1;
+	}
+}
+static int ProcessResponse(char *Xml)
+{
+	int length = 0;
+	int pos = 0;
+	int iRet = -1;
+	char WorkingXml[10240] = {0};
+	struct tx_node nodes[200]; 
+	dom_node_t errorcode_nodes[1]; 
+	dom_node_t Domnode;
+	dom_node_t ca_nodes[50];
+	dom_node_t RID[1];       
+	dom_node_t KeyID[1];                                 
+	dom_node_t HashInd[1];          
+	dom_node_t name[1];         
+	dom_node_t hashalgo[1];      
+ 	dom_node_t modulus[1];   
+	dom_node_t exponent[1];      
+	dom_node_t hash[1];    
+    dom_node_t pkalgo[1];         
+	size_t i = 0;
+	size_t count;
+	char *tail;
+	char Db[200];
+	EMV_CAPK MyLocalCAPK;
+	int CaCount = 0;
+	pos = mystrpos(Xml,"<calist>");
+
+	if(pos >0)
+	{
+			int appc = 0;
+			substring((size_t)pos,strlen(Xml),Xml,WorkingXml,strlen(WorkingXml));
+			tail = tx_parse(WorkingXml, Count(nodes), nodes);
+			CaCount = dom_getElementsByTagName(nodes, "ca", Count(ca_nodes), ca_nodes);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"N%d",CaCount);
+			for(appc=0;appc<=(CaCount-1);appc++)
+			{
+
+			memset(&MyLocalCAPK,0,sizeof(MyLocalCAPK));
+			Domnode = ca_nodes[appc];
+
+			//Name
+			count = dom_getElementsByTagName(Domnode, "name", Count(name), name);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",name[0]->value);
+			//RID
+			count = dom_getElementsByTagName(Domnode, "rid", Count(RID), RID);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",RID[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalCAPK.RID,strlen(RID[0]->value)/2);
+
+			
+			//Index
+			count = dom_getElementsByTagName(Domnode, "index", Count(HashInd), HashInd);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",HashInd[0]->value);
+			
+			//strcpy((char *)MyLocalCAPK.HashInd,&Db[0]);
+			
+			sprintf((char *)MyLocalCAPK.HashInd,"%s",&Db[0]);
+			//ArithInd
+			MyLocalCAPK.ArithInd=1;
+			//Hashalgo
+			MyLocalCAPK.HashInd= 1;
+			
+			//Modulus
+			count = dom_getElementsByTagName(Domnode, "modulus", Count(modulus), modulus);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",modulus[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalCAPK.Modul,strlen(modulus[0]->value)/2);
+			//ModulLen
+			MyLocalCAPK.ModulLen =strlen(modulus[0]->value)/2;
+			//Exponent
+			count = dom_getElementsByTagName(Domnode, "exponent", Count(exponent), exponent);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",modulus[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalCAPK.Exponent,strlen(exponent[0]->value)/2);
+			//ExponentLen
+			MyLocalCAPK.ExponentLen = strlen(exponent[0]->value)/2;
+			//ExpDate  //expri      //ÓÐÐ§ÆÚ(YYMMDD)
+			//MyLocalCAPK.ExpDate
+			//CheckSum
+			count = dom_getElementsByTagName(Domnode, "hash", Count(hash), hash);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",hash[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalCAPK.CheckSum,strlen(hash[0]->value)/2);
+			
+			
+			AddEmvCAPK(MyLocalCAPK);
+			}
+
+			return 0;
+	}
+	pos = mystrpos(Xml,"<error>");
+		if(pos >0)
+		{
+			//error
+			substring((size_t)pos,strlen(Xml),Xml,WorkingXml,strlen(WorkingXml));
+			tail = tx_parse(WorkingXml, Count(nodes), nodes);
+			count = dom_getElementsByTagName(nodes, "errcode", Count(errorcode_nodes), errorcode_nodes);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"N%d",count);
+    	for(; i < count; ++i)
+		{
+			
+    		Domnode = errorcode_nodes[i];
+			SendDebug(Domnode->value);
+		}
+		iRet=-1;
+		return iRet;
+		}else	
+		{
+		iRet=-1;
+		SendDebug("EMVAPPLIST:Request Failed");
+		}
+	return 1;
+}
+
+
+
+int   SaveEMVCAPKToFile (EMV_CAPK * MyCAPK)
+{
+	int iRet;
+	iRet  = PubFileWrite((unsigned char *)"EMVCAPKS",0,(void *)MyCAPK,sizeof(MyCAPK));
+	 return iRet;
+}
+int   ReadEMVCAPKToFile(EMV_CAPK * MyCAPK)
+{
+	int iRet;
+	iRet  = PubFileRead((unsigned char *)"EMVCAPKS",0,(void *)MyCAPK,sizeof(MyCAPK));
+	switch(iRet)
+	{
+	case 0:
+	case 1:
+	case 2:
+		return iRet;
+	case 3:
+	memset(MyCAPK,0,sizeof(MyCAPK));
+	return iRet;
+	}
+	return iRet;
+	
+}
+
+static int AddEmvCAPK(EMV_CAPK MyLocalCAPK)
+{
+	static int num_elements = 0;
+	static int  num_allocated = 0;
+	void *_tmp = NULL;
+	 if(num_elements == num_allocated) // Are more refs required?
+        {
+                // Feel free to change the initial number of refs
+                // and the rate at which refs are allocated.
+                if (num_allocated == 0)
+                        num_allocated = 3; // Start off with 3 refs
+                else
+                        num_allocated *= 2; // Double the number
+                                                    // of refs allocated
+
+                // Make the reallocation transactional
+                // by using a temporary variable first
+               _tmp = realloc(MyCAPKS, (num_allocated * sizeof(MyLocalCAPK)));
+
+                // If the reallocation didn't go so well,
+                // inform the user and bail out
+                if (!_tmp)
+                {
+                        SendDebug("ERROR: Couldn't realloc memory!\n");
+                        return(-1);
+                }
+
+                // Things are looking good so far
+                MyCAPKS = (EMV_CAPK*)_tmp;
+        }
+
+        *(MyCAPKS +num_elements) = MyLocalCAPK;
+        num_elements++;
+		SaveEMVCAPKToFile(MyCAPKS);
+        return num_elements;
+}

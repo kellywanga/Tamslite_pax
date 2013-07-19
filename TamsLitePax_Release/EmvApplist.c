@@ -1,0 +1,283 @@
+#include <posapi.h>
+#include <posapi_all.h>
+#include "PostRequest.h"
+#include "Debug.h"
+#include "Md5.h"
+#include "EmvApplist.h"
+#include "emvlib.h"
+#include "Applib.h"
+#include "tinyxml.h"
+#include "tinyxml-dom.h"
+#include "TamsLite.h"
+#include  "Hex2Bin.h"
+
+#define Count(ARRAY) (sizeof (ARRAY) / sizeof *(ARRAY))
+
+EMV_APPLIST * MyEmvApps;
+int GetEmvApplist()
+{
+	int length = -1;
+	char  Xml[102400]  = {0};
+	char *Pdata[1] = {0};
+	char AuthenticationData[200] = {0};
+	Pdata[0] = "";
+	GetHash(Pdata,1,AuthenticationData);
+	PostRequest("/tams/eftpos/devinterface/emvapp.php","",AuthenticationData,Xml);
+	length = strlen(Xml);
+	if(length >0)
+	{
+		//Response Successfull
+		return ProcessResponse(Xml);
+	}else
+	{
+		return -1;
+	}
+}
+
+static int ProcessResponse(char* Xml)
+{
+	int length = 0;
+	int pos = 0;
+	int iRet = -1;
+	char WorkingXml[10240] = {0};
+	struct tx_node nodes[1000];
+	dom_node_t errorcode_nodes[1]; 
+	dom_node_t Domnode;
+	dom_node_t emv_nodes[1];
+	dom_node_t app_nodes[50];
+	dom_node_t AppName[1];       
+	dom_node_t AID[1];                                 
+	dom_node_t Priority[1];          
+	dom_node_t TargetPer[1];         
+	dom_node_t MaxTargetPer[1];      
+ 	dom_node_t FloorLimitCheck[1];   
+	dom_node_t RandTransSel[1];      
+	dom_node_t VelocityCheck[1];    
+    dom_node_t FloorLimit[1];        
+	dom_node_t Threshold[1];        
+ 	dom_node_t TACDenial[1];      
+	dom_node_t TACOnline[1];      
+	dom_node_t TACDefault[1];           
+	dom_node_t dDOL[1];         
+	dom_node_t tDOL[1];         
+	dom_node_t Version[1];        
+	dom_node_t RiskManData[1];   
+	size_t i = 0;
+	size_t count;
+	char *tail;
+	char Db[200];
+	EMV_APPLIST MyLocalEmvApp;
+	int AppCount = 0;
+	pos = mystrpos(Xml,"<emv>");
+
+	if(pos >0)
+	{
+			int appc = 0;
+			substring((size_t)pos,strlen(Xml),Xml,WorkingXml,strlen(WorkingXml));
+			memset(nodes,0,sizeof(nodes));
+			tail = tx_parse(WorkingXml, Count(nodes), nodes);
+			
+		
+
+			AppCount = dom_getElementsByTagName(nodes,"app", Count(app_nodes), app_nodes);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"N%d",AppCount);
+			for(appc=0;appc<=(AppCount-1);appc++)
+			{
+
+			memset(&MyLocalEmvApp,0,sizeof(MyLocalEmvApp));
+			Domnode = app_nodes[appc];
+
+			//AppName
+			count = dom_getElementsByTagName(Domnode, "name", Count(AppName), AppName);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",AppName[0]->value);
+			strcpy((char *)MyLocalEmvApp.AppName,AppName[0]->value);
+			//AID
+			count = dom_getElementsByTagName(Domnode, "aid", Count(AID), AID);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",AID[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalEmvApp.AID,strlen(AID[0]->value)/2);
+
+			//MATCH
+			MyLocalEmvApp.SelFlag = PART_MATCH;
+
+			//AID LENGTH
+			MyLocalEmvApp.AidLen = strlen(AID[0]->value)/2;
+
+
+			//Appversion
+			count = dom_getElementsByTagName(Domnode, "appver", Count(Version), Version);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",Version[0]->value);
+			
+			strcpy((char *)MyLocalEmvApp.Version,&Db[0]);
+			
+			MyLocalEmvApp.Priority = 0;
+
+			MyLocalEmvApp.TargetPer = 0;
+
+			MyLocalEmvApp.MaxTargetPer= 0;
+
+			MyLocalEmvApp.FloorLimitCheck = 1;
+			MyLocalEmvApp.RandTransSel = 1;
+			MyLocalEmvApp.VelocityCheck = 1;
+
+			MyLocalEmvApp.FloorLimit = 2000;
+
+			MyLocalEmvApp.Threshold = 500;
+
+			//TACDenial
+			count = dom_getElementsByTagName(Domnode, "tacdenial", Count(TACDenial), TACDenial);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",TACDenial[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalEmvApp.TACDenial,strlen(TACDenial[0]->value)/2);
+
+
+
+			//TACOnline
+			count = dom_getElementsByTagName(Domnode, "taconline", Count(TACOnline), TACOnline);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",TACOnline[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalEmvApp.TACOnline,strlen(TACOnline[0]->value)/2);
+
+
+
+
+			
+			//TACDefault
+			count = dom_getElementsByTagName(Domnode, "tacdefault", Count(TACDefault), TACDefault);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",TACDefault[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalEmvApp.TACDefault,strlen(TACDefault[0]->value)/2);
+
+
+			//dDOL
+			count = dom_getElementsByTagName(Domnode, "ddol", Count(dDOL), dDOL);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",dDOL[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalEmvApp.dDOL,strlen(dDOL[0]->value)/2);
+
+
+
+
+			
+			//tDOL
+			count = dom_getElementsByTagName(Domnode, "ddol", Count(tDOL), tDOL);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"K%d",count);
+			SendDebug(Db);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"%s",tDOL[0]->value);
+			hex2bin(&Db[0],(char *)MyLocalEmvApp.tDOL,strlen(tDOL[0]->value)/2);
+			
+			AddEmvApplication(MyLocalEmvApp);
+			
+			}
+
+			return 0;
+	}
+		pos = mystrpos(Xml,"<error>");
+		if(pos >0)
+		{
+			//error
+			substring((size_t)pos,strlen(Xml),Xml,WorkingXml,strlen(WorkingXml));
+			tail = tx_parse(WorkingXml, Count(nodes), nodes);
+			count = dom_getElementsByTagName(nodes, "errcode", Count(errorcode_nodes), errorcode_nodes);
+			memset(&Db[0],0,sizeof(Db));
+			sprintf(&Db[0],"N%d",count);
+    	for(; i < count; ++i)
+		{
+			
+    		Domnode = errorcode_nodes[i];
+			SendDebug(Domnode->value);
+		}
+		iRet=-1;
+		return iRet;
+		}else
+		{
+		iRet=-1;
+		SendDebug("EMVAPPLIST:Request Failed");
+		}
+	return 1;
+}
+
+static int AddEmvApplication(EMV_APPLIST MyEmvApplication){
+	static int num_elements = 0;
+	static int  num_allocated = 0;
+	void *_tmp = NULL;
+	 if(num_elements == num_allocated) // Are more refs required?
+        {
+                // Feel free to change the initial number of refs
+                // and the rate at which refs are allocated.
+                if (num_allocated == 0)
+                        num_allocated = 3; // Start off with 3 refs
+                else
+                        num_allocated *= 2; // Double the number
+                                                    // of refs allocated
+
+                // Make the reallocation transactional
+                // by using a temporary variable first
+               _tmp = realloc(MyEmvApps, (num_allocated * sizeof(EMV_APPLIST)));
+
+                // If the reallocation didn't go so well,
+                // inform the user and bail out
+                if (!_tmp)
+                {
+                        SendDebug("ERROR: Couldn't realloc memory!\n");
+                        return(-1);
+                }
+
+                // Things are looking good so far
+                MyEmvApps = (EMV_APPLIST*)_tmp;
+        }
+
+        *(MyEmvApps +num_elements) = MyEmvApplication;
+        num_elements++;
+		SaveEMVApplistToFile(MyEmvApps);
+        return num_elements;
+}
+int   SaveEMVApplistToFile(EMV_APPLIST *MyEmvApplist)
+{
+	int iRet;
+	iRet  = PubFileWrite((unsigned char *)"EMVAPPS",0,(void *)MyEmvApplist,sizeof(EMV_APPLIST));
+	return iRet;
+}
+int   ReadEMVApplistToFile(EMV_APPLIST *MyEmvApplist){
+
+	int iRet;
+	iRet  = PubFileRead((unsigned char *)"EMVAPPS",0,(void *)MyEmvApplist,sizeof(EMV_APPLIST));
+	switch(iRet)
+	{
+	case 0:
+	case 1:
+	case 2:
+		return iRet;
+	case 3:
+	memset(MyEmvApplist,0,sizeof(MyEmvApplist));
+	return iRet;
+	}
+	return iRet;
+	
+}

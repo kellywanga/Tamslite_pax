@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{303928F8-A0B8-497B-A2E4-5F1243FE633D}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <SccProjectName>Svn</SccProjectName>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Solomon\Desktop\PAXDEMOS\DEMO_EMV_LIB\EmvLib_v412\EmvLib_v412;C:\PaxPayPro2010\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/TamsLitePax_Release.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\PAXPAY~1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/TamsLitePax_Release.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0804</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>payprocore.lib;EntryVS2010.lib;Sxx_EmvPC_v412.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Debug/TamsLitePax_Release.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>C:\PaxPayPro2010\lib\lib;C:\Users\Solomon\Desktop\PAXDEMOS\DEMO_EMV_LIB\EmvLib_v412\EmvLib_v412;C:\PAXPAY~1\LIB;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/TamsLitePax_Release.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+      <IgnoreSpecificDefaultLibraries>libc.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/TamsLitePax_Release.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Applib.c" />
+    <ClCompile Include="Arcfour.c" />
+    <ClCompile Include="BalanceEnq.c" />
+    <ClCompile Include="Bin2Ascii.c" />
+    <ClCompile Include="Bin2Hex.c" />
+    <ClCompile Include="CallHome.c" />
+    <ClCompile Include="Debug.c" />
+    <ClCompile Include="EftUtil.c" />
+    <ClCompile Include="Emv.c" />
+    <ClCompile Include="EmvApplist.c" />
+    <ClCompile Include="EmvCaKey.c" />
+    <ClCompile Include="Eod.c" />
+    <ClCompile Include="GetParameters.c" />
+    <ClCompile Include="Hex2Bin.c" />
+    <ClCompile Include="Keys.c" />
+    <ClCompile Include="MagStripe.c" />
+    <ClCompile Include="Main.c" />
+    <ClCompile Include="Md5.c" />
+    <ClCompile Include="NetProc.c" />
+    <ClCompile Include="PhyComms.c" />
+    <ClCompile Include="PostRequest.c" />
+    <ClCompile Include="Printer.c" />
+    <ClCompile Include="Purchase.c" />
+    <ClCompile Include="rc4.c" />
+    <ClCompile Include="Reversal.c" />
+    <ClCompile Include="RollBack.c" />
+    <ClCompile Include="Security.c" />
+    <ClCompile Include="sha256.c" />
+    <ClCompile Include="TamsLite.c" />
+    <ClCompile Include="TamsLiteReleaseTest.c" />
+    <ClCompile Include="tinyxml-dom.c" />
+    <ClCompile Include="tinyxml.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Applib.h" />
+    <ClInclude Include="Arcfour.h" />
+    <ClInclude Include="BalanceEnq.h" />
+    <ClInclude Include="Bin2Ascii.h" />
+    <ClInclude Include="Bin2Hex.h" />
+    <ClInclude Include="CallHome.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="EftUtil.h" />
+    <ClInclude Include="Emv.h" />
+    <ClInclude Include="EmvApplist.h" />
+    <ClInclude Include="EmvCaKey.h" />
+    <ClInclude Include="emvlib.h" />
+    <ClInclude Include="Eod.h" />
+    <ClInclude Include="GetParameters.h" />
+    <ClInclude Include="Hex2Bin.h" />
+    <ClInclude Include="Keys.h" />
+    <ClInclude Include="Logo.h" />
+    <ClInclude Include="MagStripe.h" />
+    <ClInclude Include="Md5.h" />
+    <ClInclude Include="NetProc.h" />
+    <ClInclude Include="PhyComms.h" />
+    <ClInclude Include="PostRequest.h" />
+    <ClInclude Include="Printer.h" />
+    <ClInclude Include="Purchase.h" />
+    <ClInclude Include="rc4.h" />
+    <ClInclude Include="Reversal.h" />
+    <ClInclude Include="RollBack.h" />
+    <ClInclude Include="Security.h" />
+    <ClInclude Include="sha256.h" />
+    <ClInclude Include="TamsLite.h" />
+    <ClInclude Include="tinyxml-dom.h" />
+    <ClInclude Include="tinyxml.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

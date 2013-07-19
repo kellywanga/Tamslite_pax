@@ -1,0 +1,131 @@
+path=C:\Windows;C:\Windows\system32;C:\PAXPAY~1\build\gcc410\bin
+
+NAME      = TamsLitePax_Release
+VERSION   = "v1.0"
+GCCDIR    = C:\PAXPAY~1\build\gcc410
+GCCBIN    = $(GCCDIR)\bin
+GCCLIB    = $(GCCDIR)\lib
+LOCSRC    = C:\PAXAPP\TAMSLI~1
+LOCOBJ    = C:\PAXAPP\TAMSLI~1\.\obj_sxx
+LOCINC    = -IC:\PAXPAY~1\include
+POSLIBDIR = C:\PAXPAY~1\postype\S80
+POSLIB    = s80api
+
+ASM       = $(GCCBIN)\arm-elf-as  -gdwarf2 
+GCC       = $(GCCBIN)\arm-elf-gcc -O0 -I$(GCCINC)\sys -msoft-float -mlittle-endian -fno-zero-initialized-in-bss -D_POS_S80 $(LOCINC) -c
+LINK      = $(GCCBIN)\arm-elf-ld -T$(POSLIBDIR)\sldscript_s80 -L$(GCCLIB) -L$(POSLIBDIR) -L$(LOCOBJ)
+OBJ    = $(LOCOBJ)\init.o \
+         $(LOCOBJ)\Applib.o \
+         $(LOCOBJ)\Arcfour.o \
+         $(LOCOBJ)\BALANC~1.o \
+         $(LOCOBJ)\BIN2AS~1.o \
+         $(LOCOBJ)\Bin2Hex.o \
+         $(LOCOBJ)\CallHome.o \
+         $(LOCOBJ)\Debug.o \
+         $(LOCOBJ)\EftUtil.o \
+         $(LOCOBJ)\Emv.o \
+         $(LOCOBJ)\EMVAPP~1.o \
+         $(LOCOBJ)\EmvCaKey.o \
+         $(LOCOBJ)\Eod.o \
+         $(LOCOBJ)\GETPAR~1.o \
+         $(LOCOBJ)\Hex2Bin.o \
+         $(LOCOBJ)\Keys.o \
+         $(LOCOBJ)\MAGSTR~1.o \
+         $(LOCOBJ)\Main.o \
+         $(LOCOBJ)\Md5.o \
+         $(LOCOBJ)\NetProc.o \
+         $(LOCOBJ)\PhyComms.o \
+         $(LOCOBJ)\POSTRE~1.o \
+         $(LOCOBJ)\Printer.o \
+         $(LOCOBJ)\Purchase.o \
+         $(LOCOBJ)\rc4.o \
+         $(LOCOBJ)\Reversal.o \
+         $(LOCOBJ)\RollBack.o \
+         $(LOCOBJ)\Security.o \
+         $(LOCOBJ)\sha256.o \
+         $(LOCOBJ)\TamsLite.o \
+         $(LOCOBJ)\TAMSLI~1.o \
+         $(LOCOBJ)\TINYXM~1.o \
+         $(LOCOBJ)\tinyxml.o
+
+#  ADS-ROM version
+$(NAME).elf: $(OBJ) _makefile_
+    $(LINK) -o $(LOCOBJ)\$(NAME).elf $(OBJ)  "C:\PAXPAY~1\lib\lib\LI79E8~1.A" -l$(POSLIB)  -lc -lgcc
+    elftobin $(LOCOBJ)\$(NAME).elf $(LOCOBJ)\$(NAME)($(VERSION)).bin PAX-S80-SAPP
+
+	arm-elf-objdump -D -S $(LOCOBJ)\$(NAME).elf > $(LOCOBJ)\$(NAME).dasm
+
+# ASM file
+$(LOCOBJ)\init.o: $(POSLIBDIR)\init_s80.s
+        $(ASM) $(POSLIBDIR)\init_s80.s -o $(LOCOBJ)\init.o
+
+#  C files
+$(LOCOBJ)\Applib.o: "Applib.c"
+        $(GCC) "Applib.c" -o $(LOCOBJ)\Applib.o
+$(LOCOBJ)\Arcfour.o: "Arcfour.c"
+        $(GCC) "Arcfour.c" -o $(LOCOBJ)\Arcfour.o
+$(LOCOBJ)\BALANC~1.o: "BALANC~1.c"
+        $(GCC) "BALANC~1.c" -o $(LOCOBJ)\BALANC~1.o
+$(LOCOBJ)\BIN2AS~1.o: "BIN2AS~1.c"
+        $(GCC) "BIN2AS~1.c" -o $(LOCOBJ)\BIN2AS~1.o
+$(LOCOBJ)\Bin2Hex.o: "Bin2Hex.c"
+        $(GCC) "Bin2Hex.c" -o $(LOCOBJ)\Bin2Hex.o
+$(LOCOBJ)\CallHome.o: "CallHome.c"
+        $(GCC) "CallHome.c" -o $(LOCOBJ)\CallHome.o
+$(LOCOBJ)\Debug.o: "Debug.c"
+        $(GCC) "Debug.c" -o $(LOCOBJ)\Debug.o
+$(LOCOBJ)\EftUtil.o: "EftUtil.c"
+        $(GCC) "EftUtil.c" -o $(LOCOBJ)\EftUtil.o
+$(LOCOBJ)\Emv.o: "Emv.c"
+        $(GCC) "Emv.c" -o $(LOCOBJ)\Emv.o
+$(LOCOBJ)\EMVAPP~1.o: "EMVAPP~1.c"
+        $(GCC) "EMVAPP~1.c" -o $(LOCOBJ)\EMVAPP~1.o
+$(LOCOBJ)\EmvCaKey.o: "EmvCaKey.c"
+        $(GCC) "EmvCaKey.c" -o $(LOCOBJ)\EmvCaKey.o
+$(LOCOBJ)\Eod.o: "Eod.c"
+        $(GCC) "Eod.c" -o $(LOCOBJ)\Eod.o
+$(LOCOBJ)\GETPAR~1.o: "GETPAR~1.c"
+        $(GCC) "GETPAR~1.c" -o $(LOCOBJ)\GETPAR~1.o
+$(LOCOBJ)\Hex2Bin.o: "Hex2Bin.c"
+        $(GCC) "Hex2Bin.c" -o $(LOCOBJ)\Hex2Bin.o
+$(LOCOBJ)\Keys.o: "Keys.c"
+        $(GCC) "Keys.c" -o $(LOCOBJ)\Keys.o
+$(LOCOBJ)\MAGSTR~1.o: "MAGSTR~1.c"
+        $(GCC) "MAGSTR~1.c" -o $(LOCOBJ)\MAGSTR~1.o
+$(LOCOBJ)\Main.o: "Main.c"
+        $(GCC) "Main.c" -o $(LOCOBJ)\Main.o
+$(LOCOBJ)\Md5.o: "Md5.c"
+        $(GCC) "Md5.c" -o $(LOCOBJ)\Md5.o
+$(LOCOBJ)\NetProc.o: "NetProc.c"
+        $(GCC) "NetProc.c" -o $(LOCOBJ)\NetProc.o
+$(LOCOBJ)\PhyComms.o: "PhyComms.c"
+        $(GCC) "PhyComms.c" -o $(LOCOBJ)\PhyComms.o
+$(LOCOBJ)\POSTRE~1.o: "POSTRE~1.c"
+        $(GCC) "POSTRE~1.c" -o $(LOCOBJ)\POSTRE~1.o
+$(LOCOBJ)\Printer.o: "Printer.c"
+        $(GCC) "Printer.c" -o $(LOCOBJ)\Printer.o
+$(LOCOBJ)\Purchase.o: "Purchase.c"
+        $(GCC) "Purchase.c" -o $(LOCOBJ)\Purchase.o
+$(LOCOBJ)\rc4.o: "rc4.c"
+        $(GCC) "rc4.c" -o $(LOCOBJ)\rc4.o
+$(LOCOBJ)\Reversal.o: "Reversal.c"
+        $(GCC) "Reversal.c" -o $(LOCOBJ)\Reversal.o
+$(LOCOBJ)\RollBack.o: "RollBack.c"
+        $(GCC) "RollBack.c" -o $(LOCOBJ)\RollBack.o
+$(LOCOBJ)\Security.o: "Security.c"
+        $(GCC) "Security.c" -o $(LOCOBJ)\Security.o
+$(LOCOBJ)\sha256.o: "sha256.c"
+        $(GCC) "sha256.c" -o $(LOCOBJ)\sha256.o
+$(LOCOBJ)\TamsLite.o: "TamsLite.c"
+        $(GCC) "TamsLite.c" -o $(LOCOBJ)\TamsLite.o
+$(LOCOBJ)\TAMSLI~1.o: "TAMSLI~1.c"
+        $(GCC) "TAMSLI~1.c" -o $(LOCOBJ)\TAMSLI~1.o
+$(LOCOBJ)\TINYXM~1.o: "TINYXM~1.c"
+        $(GCC) "TINYXM~1.c" -o $(LOCOBJ)\TINYXM~1.o
+$(LOCOBJ)\tinyxml.o: "tinyxml.c"
+        $(GCC) "tinyxml.c" -o $(LOCOBJ)\tinyxml.o
+clean:
+	del *.db
+	del *.blk
+	del *.db2
+	del *.out
